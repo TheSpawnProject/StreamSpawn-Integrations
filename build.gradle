@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group 'net.programmer.igoodie'
+version '1.0.0'
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation "io.socket:socket.io-client:1.0.0"
+
+    api 'com.github.TheSpawnProject:TheSpawnLanguage:v1.5.1-alpha2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = rootProject.name
+        }
+    }
+}
