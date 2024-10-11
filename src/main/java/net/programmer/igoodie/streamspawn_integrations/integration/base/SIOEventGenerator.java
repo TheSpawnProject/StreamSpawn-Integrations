@@ -1,31 +1,22 @@
-package net.programmer.igoodie.integration.base;
+package net.programmer.igoodie.streamspawn_integrations.integration.base;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import org.json.JSONObject;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
-public abstract class SIOEventPublisher extends EventPublisher<JSONObject> {
+public abstract class SIOEventGenerator extends EventGenerator<JSONObject> {
 
     protected URI url;
     protected Socket socket;
 
-    protected List<OptionInterceptor> optionInterceptors;
-
-    public SIOEventPublisher(String url) {
+    public SIOEventGenerator(String url) {
         this.url = URI.create(url);
-        this.optionInterceptors = new ArrayList<>();
     }
 
     public Socket getSocket() {
         return socket;
-    }
-
-    public void addOptionInterceptor(OptionInterceptor interceptor) {
-        this.optionInterceptors.add(interceptor);
     }
 
     protected IO.Options generateOptions() {
@@ -33,7 +24,6 @@ public abstract class SIOEventPublisher extends EventPublisher<JSONObject> {
         options.forceNew = true;
         options.reconnection = true;
         options.transports = new String[]{"websocket"};
-        optionInterceptors.forEach(interceptor -> interceptor.intercept(options));
         return options;
     }
 
@@ -62,10 +52,5 @@ public abstract class SIOEventPublisher extends EventPublisher<JSONObject> {
     protected abstract void onConnect(Socket socket, Object... args);
 
     protected abstract void onDisconnect(Socket socket, Object... args);
-
-    @FunctionalInterface
-    public interface OptionInterceptor {
-        void intercept(IO.Options options);
-    }
 
 }

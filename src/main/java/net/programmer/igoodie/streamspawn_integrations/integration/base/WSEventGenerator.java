@@ -1,7 +1,7 @@
-package net.programmer.igoodie.integration.base;
+package net.programmer.igoodie.streamspawn_integrations.integration.base;
 
 // TODO
-public class WSEventPublisher extends EventPublisher<Object> {
+public class WSEventGenerator extends EventGenerator<Object> {
 
     @Override
     public void initialize() {

@@ -1,4 +1,4 @@
-package net.programmer.igoodie.util;
+package net.programmer.igoodie.streamspawn_integrations.util;
 
 import java.util.function.Supplier;
 

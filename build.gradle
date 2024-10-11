@@ -20,7 +20,7 @@ repositories {
 dependencies {
     implementation "io.socket:socket.io-client:1.0.0"
 
-    api 'com.github.TheSpawnProject:TheSpawnLanguage:v1.5.1-alpha2'
+    api 'com.github.TheSpawnProject:TheSpawnLanguage:v1.5.1-alpha3'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'

@@ -1,6 +1,7 @@
-package net.programmer.igoodie.event;
+package net.programmer.igoodie.streamspawn_integrations.event;
 
-import net.programmer.igoodie.runtime.event.TSLEvent;
+
+import net.programmer.igoodie.tsl.runtime.event.TSLEvent;
 
 public class KnownEventArgs {
 
@@ -9,7 +10,6 @@ public class KnownEventArgs {
     public static TSLEvent.Property<String> SOURCE = TSLEvent.PropertyBuilder.STRING.create("source");
 
     public static TSLEvent.Property<String> ACTOR = TSLEvent.PropertyBuilder.STRING.create("actor");
-    public static TSLEvent.Property<String> ACTOR_ID = TSLEvent.PropertyBuilder.STRING.create("actor_id");
 
     public static TSLEvent.Property<String> MESSAGE = TSLEvent.PropertyBuilder.STRING.create("message");
     public static TSLEvent.Property<Double> AMOUNT = TSLEvent.PropertyBuilder.DOUBLE.create("amount");

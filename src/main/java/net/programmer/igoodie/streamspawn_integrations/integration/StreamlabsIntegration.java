@@ -1,17 +1,17 @@
-package net.programmer.igoodie.integration;
+package net.programmer.igoodie.streamspawn_integrations.integration;
 
 import io.socket.client.Socket;
-import net.programmer.igoodie.event.IncomingEvent;
-import net.programmer.igoodie.event.KnownEventArgs;
-import net.programmer.igoodie.event.KnownEventNames;
-import net.programmer.igoodie.integration.base.SIOEventPublisher;
-import net.programmer.igoodie.util.JSONUtils;
-import net.programmer.igoodie.util.ObjUtils;
+import net.programmer.igoodie.streamspawn_integrations.event.IncomingEvent;
+import net.programmer.igoodie.streamspawn_integrations.event.KnownEventArgs;
+import net.programmer.igoodie.streamspawn_integrations.event.KnownEventNames;
+import net.programmer.igoodie.streamspawn_integrations.integration.base.SIOEventGenerator;
+import net.programmer.igoodie.streamspawn_integrations.util.JSONUtils;
+import net.programmer.igoodie.streamspawn_integrations.util.ObjUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class StreamlabsIntegration extends SIOEventPublisher {
+public class StreamlabsIntegration extends SIOEventGenerator {
 
     public StreamlabsIntegration() {
         super("https://sockets.streamlabs.com");
@@ -29,16 +29,16 @@ public class StreamlabsIntegration extends SIOEventPublisher {
     @Override
     protected void onDisconnect(Socket socket, Object... args) {}
 
-    protected void onEvent(Socket socket, Object... args) {
+    protected final void onEvent(Socket socket, Object... args) {
         JSONObject eventData = (JSONObject) args[0];
-        pushRawEvent(eventData);
+        onRawEvent(eventData);
 
         String eventFor = JSONUtils.extractFrom(eventData, "for", String.class, () -> "").replace("_account", "");
         String eventType = JSONUtils.extractFrom(eventData, "type", String.class, () -> "");
         String eventName = getEventName(eventFor, eventType);
 
         if (eventName == null) {
-            pushUnknownEvent(eventData);
+            onUnknownRawEvent(eventData);
             return;
         }
 
@@ -68,7 +68,7 @@ public class StreamlabsIntegration extends SIOEventPublisher {
                     () -> JSONUtils.extractFrom(message, "product", String.class),
                     () -> JSONUtils.extractFrom(message, "title", String.class)
             ));
-            pushEvent(event);
+            onEvent(event);
         });
     }
 

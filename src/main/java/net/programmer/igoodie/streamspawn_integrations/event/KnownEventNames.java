@@ -1,4 +1,4 @@
-package net.programmer.igoodie.event;
+package net.programmer.igoodie.streamspawn_integrations.event;
 
 public class KnownEventNames {
 
